@@ -8,7 +8,7 @@ public class TCPserver {
 
         while (true) {
 
-            System.out.println("Connected !!");
+            System.out.println("Ready to Connect !!");
             Socket clientSocket = serverSocket.accept();
             System.out.println("Accepted client connection from " + clientSocket.getInetAddress());
 
@@ -23,8 +23,8 @@ public class TCPserver {
                         Dos_out.writeUTF("pong");
                     } else if (word.equals("Exit")) {
                         Dos_out.writeUTF("The Connection Closed");
-                        clientSocket.close();
                         System.out.println("Closed connection from " + clientSocket);
+                        break;
                     } else {
                         Dos_out.writeUTF(word + ' ' + ": Not the right message");
                     }
