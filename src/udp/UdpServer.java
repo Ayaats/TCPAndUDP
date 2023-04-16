@@ -23,35 +23,36 @@ public class UdpServer {
 
                 sendData = "pong".getBytes();
 
-                DatagramPacket requestDatagramPacket =
+                DatagramPacket request =
                 new DatagramPacket(
                         sendData , sendData.length
                         ,receivePacket.getAddress()
                         ,receivePacket.getPort());
-                serverSocket.send(requestDatagramPacket);
+                serverSocket.send(request);
 
-            } else if (message.equals("Exit")) {
+            }else if (message.equals("Exit")) {
                 System.out.println(message);
-                sendData= "Exit".getBytes();
-                DatagramPacket ExitDatagramPacket =
+                sendData= "Successfully Exit".getBytes();
+                DatagramPacket ExitRequest =
                         new DatagramPacket(
                                 sendData, sendData.length
                                 , receivePacket.getAddress()
                                 , receivePacket.getPort());
-                serverSocket.send(ExitDatagramPacket);
+                serverSocket.send(ExitRequest);
                 availability = false;
                 serverSocket.close();
+
             }
-            else{
+            else {
                 sendData = "Not the right message".getBytes();
-                DatagramPacket request =
+                DatagramPacket wrongRequest =
                 new DatagramPacket(
-                        sendData,sendData.length, receivePacket.getAddress()
+                        sendData,sendData.length,
+                        receivePacket.getAddress()
                         ,receivePacket.getPort());
-                serverSocket.send(request);
+                serverSocket.send(wrongRequest);
             }
         }
-
 
     }
 }

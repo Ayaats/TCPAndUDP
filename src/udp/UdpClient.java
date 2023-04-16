@@ -40,10 +40,12 @@ public class UdpClient {
             if (message.equals("ping")) {
                 System.out.println("Received Data : "+' '+ input);
 
-            }else {
-                System.out.println("The Server Say : "+' '+ input);
+            }else if (message.equals("Exit")){
+                System.out.println("The server say : "+' '+input);
                 clientSocket.close();
                 availability = false;
+            }else{
+                System.out.println(input);
             }
 
         }

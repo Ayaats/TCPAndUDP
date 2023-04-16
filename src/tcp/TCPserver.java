@@ -17,15 +17,12 @@ public class TCPserver {
                 while ((word = Dos_in.readUTF()) != null) {
                     if (word.equals("ping")) {
                         Dos_out.writeUTF("pong");
-
                     } else if (word.equals("Exit")) {
                         Dos_out.writeUTF("The Connection Closed");
                         clientSocket.close();
                         System.out.println("Closed connection from " + clientSocket);
-
                     } else {
                         Dos_out.writeUTF(word + ' ' + ": Not the right message");
-
                     }
                 }
             }
