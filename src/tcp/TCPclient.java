@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class TCPclient {
 public static void main(String[] args) throws IOException {
 
-    boolean connection ;
+    boolean isConnected ;
 
-    connection = true;
+    isConnected = true;
 
     Scanner S =new Scanner(System.in);
     Socket socket = new Socket("localhost", 1122);
@@ -18,9 +18,9 @@ public static void main(String[] args) throws IOException {
     InputStream S_in=socket.getInputStream();
     DataInputStream Dos_in =new DataInputStream(S_in);
 
-    while(connection){
+    while(isConnected){
 
-    System.out.println("Enter your message");
+    System.out.println("Please enter your message:");
     String message=S.nextLine();
 
     Dos_out.writeUTF(message);
@@ -33,7 +33,7 @@ public static void main(String[] args) throws IOException {
         Dos_in.close();
         Dos_out.close();
         socket.close();
-        connection=false;
+        isConnected=false;
     }
 }
 }

@@ -7,7 +7,11 @@ public class TCPserver {
         ServerSocket serverSocket = new ServerSocket(1122);
 
         while (true) {
+
+            System.out.println("Connected !!");
             Socket clientSocket = serverSocket.accept();
+            System.out.println("Accepted client connection from " + clientSocket.getInetAddress());
+
 
             OutputStream S_out = clientSocket.getOutputStream();
             DataOutputStream Dos_out = new DataOutputStream(S_out);
