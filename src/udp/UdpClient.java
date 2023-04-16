@@ -4,42 +4,48 @@ import java.io.*;
 import java.util.Scanner;
 
 public class UdpClient {
-    public static void main(String args []) throws IOException {
-        DatagramSocket socket = new DatagramSocket();
+    public static void main(String args[]) throws IOException {
 
+
+        DatagramSocket clientSocket = new DatagramSocket();
         Scanner S = new Scanner(System.in);
+        boolean availability = true;
+
+        while (availability) {
+
+            InetAddress serverAddress = InetAddress.getByName("localhost");
+            int ServerPort = 1122;
 
 
-        System.out.println("Enter ping");
-        String m = S.nextLine();
+            System.out.println("Enter Your Message");
+            String message = S.nextLine();
 
-        byte[] out = m.getBytes();
+            byte[] outData = message.getBytes();
 
-        int ServerPort = 1122;
+            DatagramPacket sendPacket = new DatagramPacket(
+                    outData, outData.length, serverAddress, ServerPort);
 
-        InetAddress host = InetAddress.getLocalHost();
+            clientSocket.send(sendPacket);
 
-        DatagramPacket request = new DatagramPacket(
-                out,out.length,host,ServerPort);
+            byte[] inData = new byte[1024];
 
-       socket.send(request);
+            DatagramPacket receivePacket = new DatagramPacket(
+                    inData, inData.length);
+            clientSocket.receive(receivePacket);
 
-        byte[] in = new byte[10000];
+            String input = new String(
+                    receivePacket.getData(),
+                    0, receivePacket.getLength());
 
-        DatagramPacket reply = new DatagramPacket(
-                in,in.length);
+            if (message.equals("ping")) {
+                System.out.println("Received Data : "+' '+ input);
 
-        socket.receive(reply);
+            }else {
+                System.out.println("The Server Say : "+' '+ input);
+                clientSocket.close();
+                availability = false;
+            }
 
-        String inputLine = new String(
-                reply.getData(), 0, reply.getLength());
-
-        if(inputLine.equals("pong")) {
-            System.out.println("Reply: " + new String(inputLine));
-        }else {
-            System.out.println("Reply: " + new String(inputLine));
         }
-
-
     }
 }
